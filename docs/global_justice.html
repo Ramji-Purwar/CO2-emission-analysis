@@ -120,7 +120,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./1_fundamentals.html">Analysis</a></li><li class="breadcrumb-item"><a href="./4_global_justice.html">D. Climate Justice</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./fundamentals.html">Analysis</a></li><li class="breadcrumb-item"><a href="./global_justice.html">D. Climate Justice</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -168,32 +168,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./1_fundamentals.html" class="sidebar-item-text sidebar-link">
+  <a href="./fundamentals.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">A. Fundamentals</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./2_trade_intensity.html" class="sidebar-item-text sidebar-link">
+  <a href="./trade_intensity.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">B. Trade &amp; Intensity</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./3_fuel_energy.html" class="sidebar-item-text sidebar-link">
+  <a href="./fuel_energy.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">C. Fuel &amp; Energy</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./4_global_justice.html" class="sidebar-item-text sidebar-link active">
+  <a href="./global_justice.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">D. Climate Justice</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./5_decoupling.html" class="sidebar-item-text sidebar-link">
+  <a href="./decoupling.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">E. Decoupling &amp; GHG</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hypotheses.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">F. Hypothesis Testing</span></a>
   </div>
 </li>
       </ul>
@@ -227,7 +233,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./1_fundamentals.html">Analysis</a></li><li class="breadcrumb-item"><a href="./4_global_justice.html">D. Climate Justice</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./fundamentals.html">Analysis</a></li><li class="breadcrumb-item"><a href="./global_justice.html">D. Climate Justice</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">D. Climate Justice &amp; Global Tensions</h1>
 </div>
@@ -260,7 +266,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <figcaption>Global CO₂ Emissions Trend with Key Policy Milestones</figcaption>
 </figure>
 </div>
-<div id="8e5010eb" class="cell" data-execution_count="2">
+<div id="79cc501e" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>View Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>world9 <span class="op">=</span> df[df[<span class="st">"country"</span>] <span class="op">==</span> <span class="st">"World"</span>][[<span class="st">"year"</span>,<span class="st">"co2"</span>]].dropna()</span>
@@ -313,7 +319,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <figcaption>Country Contributions to Global Temperature Rise</figcaption>
 </figure>
 </div>
-<div id="e80a5317" class="cell" data-execution_count="3">
+<div id="800246ed" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>View Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df_temp <span class="op">=</span> country_df[country_df[<span class="st">"year"</span>] <span class="op">==</span> <span class="dv">2024</span>][</span>
@@ -358,7 +364,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <figcaption>Full Greenhouse Gas Breakdown</figcaption>
 </figure>
 </div>
-<div id="d013d4d9" class="cell" data-execution_count="4">
+<div id="5b2e0e99" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>View Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>countries_d3 <span class="op">=</span> [<span class="st">"China"</span>,<span class="st">"United States"</span>,<span class="st">"India"</span>,<span class="st">"Russia"</span>,<span class="st">"Brazil"</span>,<span class="st">"Indonesia"</span>,<span class="st">"Japan"</span>,<span class="st">"Germany"</span>,<span class="st">"Canada"</span>,<span class="st">"South Africa"</span>]</span>
@@ -419,7 +425,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <figcaption>Historical Responsibility vs Current Per-Capita Emissions</figcaption>
 </figure>
 </div>
-<div id="3e5c9ad8" class="cell" data-execution_count="5">
+<div id="c0602c0a" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>View Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df_d5 <span class="op">=</span> country_df.dropna(subset<span class="op">=</span>[<span class="st">"cumulative_co2"</span>,<span class="st">"co2_per_capita"</span>])</span>
@@ -476,7 +482,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <figcaption>Global Map of CO₂ Emissions per Capita</figcaption>
 </figure>
 </div>
-<div id="81556b26" class="cell" data-execution_count="6">
+<div id="23a79002" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>View Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df_d6 <span class="op">=</span> country_df.dropna(subset<span class="op">=</span>[<span class="st">"co2_per_capita"</span>])</span>
@@ -526,7 +532,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The map paints a stark reality: individual citizens in the wealthiest nations and resource-rich Gulf states generate dramatically more carbon annually than the average citizen in Sub-Saharan Africa or South Asia.</p>
 <section id="synthesis" class="level3">
 <h3 class="anchored" data-anchor-id="synthesis">Synthesis</h3>
-<p>Climate negotiations frequently stall on the dual dimensions of responsibility. Developed nations argue that mitigation must include modern behemoths like China and India, as their current trajectories dictate the future climate. Developing nations accurately counter that the West filled the atmospheric carbon budget first to build their wealthy economies, making strict, uniform present-day restrictions fundamentally inequitable.</p>
+<p>Climate negotiations frequently stall on the dual dimensions of responsibility. Developed nations argue that mitigation must include modern behemoths like China and India, as their current trajectories dictate the future climate. Developing nations accurately counter that the West filled the atmospheric carbon budget first to build their wealthy economies, making strict, uniform present-day restrictions fundamentally inequitable. Historical responsibility is formally tested in <a href="./hypotheses.html#h4-historical-responsibility">H4</a>, with Spearman ρ=0.853, p=6.2e-62.</p>
 
 
 </section>
