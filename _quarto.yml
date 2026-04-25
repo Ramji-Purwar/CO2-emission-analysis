@@ -1,0 +1,42 @@
+project:
+  type: website
+  output-dir: _site
+  render:
+    - "*.qmd"
+
+website:
+  title: "Global CO2 Analysis"
+  description: "A data-driven investigation into historical responsibility, decoupling, and global carbon footprints."
+  
+  sidebar:
+    collapse-level: 1
+    style: "docked"
+    search: true
+    contents:
+      - href: index.qmd
+        text: Home
+      - href: data_summary.qmd
+        text: Data Summary
+      - section: "Analysis"
+        contents:
+          - href: 1_fundamentals.qmd
+            text: A. Fundamentals
+          - href: 2_trade_intensity.qmd
+            text: B. Trade & Intensity
+          - href: 3_fuel_energy.qmd
+            text: C. Fuel & Energy
+          - href: 4_global_justice.qmd
+            text: D. Climate Justice
+          - href: 5_decoupling.qmd
+            text: E. Decoupling & GHG
+      - href: conclusion.qmd
+        text: Conclusion
+
+format:
+  html:
+    theme: litera
+    css: styles.css
+    toc: true
+    toc-depth: 3
+    code-fold: true
+    html-math-method: mathjax

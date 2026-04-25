@@ -1,0 +1,17 @@
+/* Custom styles for the website */
+.quarto-title-block .quarto-title {
+  margin-bottom: 1rem;
+}
+img {
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  max-width: 100%;
+}
+table {
+  width: 100%;
+}
+th {
+  background-color: #f8f9fa;
+}

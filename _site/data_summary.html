@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Comprehensive analysis of the Our World in Data CO₂ dataset with exploratory visualizations, code, and detailed explanations.">
+
+<title>Data Summary – Global CO2 Analysis</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-72350a71bf5a031b3fb1c0f591f09742.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./data_summary.html">Data Summary</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Global CO2 Analysis</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_summary.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Data Summary</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Analysis</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./1_fundamentals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">A. Fundamentals</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./2_trade_intensity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">B. Trade &amp; Intensity</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./3_fuel_energy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">C. Fuel &amp; Energy</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./4_global_justice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">D. Climate Justice</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./5_decoupling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">E. Decoupling &amp; GHG</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./conclusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Conclusion</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#data-summary-co₂-greenhouse-gas-emissions-dataset" id="toc-data-summary-co₂-greenhouse-gas-emissions-dataset" class="nav-link active" data-scroll-target="#data-summary-co₂-greenhouse-gas-emissions-dataset">Data Summary — CO₂ &amp; Greenhouse Gas Emissions Dataset</a>
+  <ul class="collapse">
+  <li><a href="#dataset-dimensions-structure" id="toc-dataset-dimensions-structure" class="nav-link" data-scroll-target="#dataset-dimensions-structure">1. Dataset Dimensions &amp; Structure</a>
+  <ul class="collapse">
+  <li><a href="#loading-and-initial-exploration" id="toc-loading-and-initial-exploration" class="nav-link" data-scroll-target="#loading-and-initial-exploration">Loading and Initial Exploration</a></li>
+  </ul></li>
+  <li><a href="#data-coverage-missingness" id="toc-data-coverage-missingness" class="nav-link" data-scroll-target="#data-coverage-missingness">2. Data Coverage &amp; Missingness</a>
+  <ul class="collapse">
+  <li><a href="#code-for-missing-data-analysis" id="toc-code-for-missing-data-analysis" class="nav-link" data-scroll-target="#code-for-missing-data-analysis">Code for Missing Data Analysis</a></li>
+  </ul></li>
+  <li><a href="#distribution-of-key-variables" id="toc-distribution-of-key-variables" class="nav-link" data-scroll-target="#distribution-of-key-variables">3. Distribution of Key Variables</a>
+  <ul class="collapse">
+  <li><a href="#code-for-distribution-analysis" id="toc-code-for-distribution-analysis" class="nav-link" data-scroll-target="#code-for-distribution-analysis">Code for Distribution Analysis</a></li>
+  </ul></li>
+  <li><a href="#correlation-structure" id="toc-correlation-structure" class="nav-link" data-scroll-target="#correlation-structure">4. Correlation Structure</a>
+  <ul class="collapse">
+  <li><a href="#code-for-correlation-analysis" id="toc-code-for-correlation-analysis" class="nav-link" data-scroll-target="#code-for-correlation-analysis">Code for Correlation Analysis</a></li>
+  </ul></li>
+  <li><a href="#country-clustering-by-emission-profile-t-sne" id="toc-country-clustering-by-emission-profile-t-sne" class="nav-link" data-scroll-target="#country-clustering-by-emission-profile-t-sne">5. Country Clustering by Emission Profile (t-SNE)</a>
+  <ul class="collapse">
+  <li><a href="#code-for-t-sne-analysis" id="toc-code-for-t-sne-analysis" class="nav-link" data-scroll-target="#code-for-t-sne-analysis">Code for t-SNE Analysis</a></li>
+  </ul></li>
+  <li><a href="#global-emissions-timeline" id="toc-global-emissions-timeline" class="nav-link" data-scroll-target="#global-emissions-timeline">6. Global Emissions Timeline</a>
+  <ul class="collapse">
+  <li><a href="#code-for-global-timeline" id="toc-code-for-global-timeline" class="nav-link" data-scroll-target="#code-for-global-timeline">Code for Global Timeline</a></li>
+  </ul></li>
+  <li><a href="#global-emissions-composition-by-source" id="toc-global-emissions-composition-by-source" class="nav-link" data-scroll-target="#global-emissions-composition-by-source">7. Global Emissions Composition by Source</a>
+  <ul class="collapse">
+  <li><a href="#code-for-emissions-by-source" id="toc-code-for-emissions-by-source" class="nav-link" data-scroll-target="#code-for-emissions-by-source">Code for Emissions by Source</a></li>
+  </ul></li>
+  <li><a href="#top-historical-contributors" id="toc-top-historical-contributors" class="nav-link" data-scroll-target="#top-historical-contributors">8. Top Historical Contributors</a>
+  <ul class="collapse">
+  <li><a href="#code-for-cumulative-emitters" id="toc-code-for-cumulative-emitters" class="nav-link" data-scroll-target="#code-for-cumulative-emitters">Code for Cumulative Emitters</a></li>
+  </ul></li>
+  <li><a href="#summary-statistics" id="toc-summary-statistics" class="nav-link" data-scroll-target="#summary-statistics">9. Summary Statistics</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Data Summary</h1>
+</div>
+
+<div>
+  <div class="description">
+    Comprehensive analysis of the Our World in Data CO₂ dataset with exploratory visualizations, code, and detailed explanations.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="data-summary-co₂-greenhouse-gas-emissions-dataset" class="level1">
+<h1>Data Summary — CO₂ &amp; Greenhouse Gas Emissions Dataset</h1>
+<p><strong>Source:</strong> Our World in Data (OWID) — Global CO₂ and Greenhouse Gas Emissions<br>
+<strong>File:</strong> <code>owid-co2-data.csv</code><br>
+<strong>Period:</strong> 1750–2024 (275 years of observations)</p>
+<hr>
+<section id="dataset-dimensions-structure" class="level2">
+<h2 class="anchored" data-anchor-id="dataset-dimensions-structure">1. Dataset Dimensions &amp; Structure</h2>
+<p>The dataset contains <strong>50,411 observations</strong> across <strong>80 columns</strong>, covering <strong>218 countries and territories</strong> from 1750 to 2024. Each row represents a single country-year observation.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Plots/DataSummary/DS1_dataset_overview_table.png" class="img-fluid figure-img"></p>
+<figcaption>Dataset Overview</figcaption>
+</figure>
+</div>
+<p>The 80 columns are organised into nine thematic groups:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Group</th>
+<th>Representative Columns</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Identifiers</strong></td>
+<td><code>country</code>, <code>year</code>, <code>iso_code</code>, <code>population</code>, <code>gdp</code></td>
+<td>Row identification and socio-economic context</td>
+</tr>
+<tr class="even">
+<td><strong>Core CO₂</strong></td>
+<td><code>co2</code>, <code>co2_per_capita</code>, <code>co2_per_gdp</code>, <code>cumulative_co2</code></td>
+<td>Total and normalised fossil-fuel CO₂ emissions</td>
+</tr>
+<tr class="odd">
+<td><strong>Fuel Sources</strong></td>
+<td><code>coal_co2</code>, <code>oil_co2</code>, <code>gas_co2</code>, <code>cement_co2</code>, <code>flaring_co2</code></td>
+<td>Emissions disaggregated by combustion source</td>
+</tr>
+<tr class="even">
+<td><strong>Land-Use</strong></td>
+<td><code>land_use_change_co2</code>, <code>co2_including_luc</code></td>
+<td>Deforestation and land-conversion emissions</td>
+</tr>
+<tr class="odd">
+<td><strong>Trade / Consumption</strong></td>
+<td><code>consumption_co2</code>, <code>trade_co2</code>, <code>trade_co2_share</code></td>
+<td>Consumption-based accounting and embedded trade emissions</td>
+</tr>
+<tr class="even">
+<td><strong>Energy</strong></td>
+<td><code>primary_energy_consumption</code>, <code>co2_per_unit_energy</code></td>
+<td>Energy system scale and carbon intensity</td>
+</tr>
+<tr class="odd">
+<td><strong>GHG (non-CO₂)</strong></td>
+<td><code>total_ghg</code>, <code>methane</code>, <code>nitrous_oxide</code>, <code>ghg_per_capita</code></td>
+<td>Full greenhouse gas accounting including CH₄ and N₂O</td>
+</tr>
+<tr class="even">
+<td><strong>Temperature</strong></td>
+<td><code>temperature_change_from_co2</code>, <code>share_of_temperature_change_from_ghg</code></td>
+<td>Attribution of observed warming to individual countries</td>
+</tr>
+<tr class="odd">
+<td><strong>Shares</strong></td>
+<td><code>share_global_co2</code>, <code>share_global_cumulative_co2</code></td>
+<td>Each country’s fraction of global totals</td>
+</tr>
+</tbody>
+</table>
+<section id="loading-and-initial-exploration" class="level3">
+<h3 class="anchored" data-anchor-id="loading-and-initial-exploration">Loading and Initial Exploration</h3>
+<div id="73748a02" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>View Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>warnings.filterwarnings(<span class="st">"ignore"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.ticker <span class="im">as</span> mticker</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.manifold <span class="im">import</span> TSNE</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"./owid-co2-data.csv"</span>, low_memory<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">"gdp_per_capita"</span> <span class="kw">not</span> <span class="kw">in</span> df.columns:</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"gdp_per_capita"</span>] <span class="op">=</span> df[<span class="st">"gdp"</span>] <span class="op">/</span> df[<span class="st">"population"</span>]</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>country_df <span class="op">=</span> df[df[<span class="st">"iso_code"</span>].notna() <span class="op">&amp;</span> (df[<span class="st">"iso_code"</span>] <span class="op">!=</span> <span class="st">""</span>)].copy()</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>world_df   <span class="op">=</span> df[df[<span class="st">"country"</span>] <span class="op">==</span> <span class="st">"World"</span>].copy()</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Full dataset   : </span><span class="sc">{</span>df<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">:,}</span><span class="ss"> rows × </span><span class="sc">{</span>df<span class="sc">.</span>shape[<span class="dv">1</span>]<span class="sc">}</span><span class="ss"> columns"</span>)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Country rows   : </span><span class="sc">{</span>country_df<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">:,}</span><span class="ss"> rows | </span><span class="sc">{</span>country_df[<span class="st">'country'</span>]<span class="sc">.</span>nunique()<span class="sc">}</span><span class="ss"> countries"</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Year range     : </span><span class="sc">{</span>df[<span class="st">'year'</span>]<span class="sc">.</span><span class="bu">min</span>()<span class="sc">}</span><span class="ss"> – </span><span class="sc">{</span>df[<span class="st">'year'</span>]<span class="sc">.</span><span class="bu">max</span>()<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Full dataset   : 50,411 rows × 80 columns
+Country rows   : 42,480 rows | 218 countries
+Year range     : 1750 – 2024</code></pre>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="data-coverage-missingness" class="level2">
+<h2 class="anchored" data-anchor-id="data-coverage-missingness">2. Data Coverage &amp; Missingness</h2>
+<p>Data availability varies substantially across columns and time periods. Core emissions data (<code>co2</code>, <code>population</code>) is available from the mid-1800s onward, while trade, GHG, and temperature attribution data only becomes available from the 1990s.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Plots/DataSummary/DS2_missing_data_heatmap.png" class="img-fluid figure-img"></p>
+<figcaption>Missing Data Heatmap</figcaption>
+</figure>
+</div>
+<p><strong>Key observations on data availability:</strong> - <strong>co2</strong> and <strong>population</strong> have near-complete coverage from 1850 onwards.<br>
+- <strong>Fuel-source breakdown</strong> (coal, oil, gas) becomes available from approximately 1900.<br>
+- <strong>Trade and consumption-based CO₂</strong> data is only available from ~1990, and only for countries with detailed economic reporting.<br>
+- <strong>GHG, methane, and nitrous oxide</strong> data begins around 1990, sourced from the Jones et al.&nbsp;national contributions dataset.<br>
+- <strong>Temperature attribution</strong> metrics are the most sparse — available only for selected years and countries with sufficient historical emission records.</p>
+<p>This missingness pattern is not random; it reflects the historical development of measurement infrastructure. Pre-1950 data relies heavily on historical reconstructions, while post-1990 data benefits from satellite observations and standardised national reporting under the UNFCCC.</p>
+<section id="code-for-missing-data-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="code-for-missing-data-analysis">Code for Missing Data Analysis</h3>
+<div id="daa769a4" class="cell" data-execution_count="2">
+<details class="code-fold">
+<summary>View Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>plt.rcParams.update({</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"font.family"</span>:       <span class="st">"DejaVu Sans"</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"font.size"</span>:         <span class="dv">11</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"axes.titlesize"</span>:    <span class="dv">14</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"axes.titleweight"</span>:  <span class="st">"bold"</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"axes.labelsize"</span>:    <span class="dv">12</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"axes.spines.top"</span>:   <span class="va">False</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"axes.spines.right"</span>: <span class="va">False</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"figure.dpi"</span>:        <span class="dv">120</span>,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"savefig.dpi"</span>:       <span class="dv">300</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"savefig.bbox"</span>:      <span class="st">"tight"</span>,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"savefig.facecolor"</span>: <span class="st">"white"</span>,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>OUT <span class="op">=</span> Path(<span class="st">"../Plots/DataSummary"</span>)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>OUT.mkdir(parents<span class="op">=</span><span class="va">True</span>, exist_ok<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>key_cols <span class="op">=</span> [</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"co2"</span>, <span class="st">"co2_per_capita"</span>, <span class="st">"co2_per_gdp"</span>, <span class="st">"gdp"</span>, <span class="st">"population"</span>,</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"coal_co2"</span>, <span class="st">"oil_co2"</span>, <span class="st">"gas_co2"</span>, <span class="st">"cement_co2"</span>, <span class="st">"flaring_co2"</span>,</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"consumption_co2"</span>, <span class="st">"trade_co2"</span>, <span class="st">"primary_energy_consumption"</span>,</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">"total_ghg"</span>, <span class="st">"methane"</span>, <span class="st">"nitrous_oxide"</span>, <span class="st">"ghg_per_capita"</span>,</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">"temperature_change_from_ghg"</span>, <span class="st">"co2_including_luc"</span>, <span class="st">"cumulative_co2"</span>,</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>key_cols <span class="op">=</span> [c <span class="cf">for</span> c <span class="kw">in</span> key_cols <span class="cf">if</span> c <span class="kw">in</span> df.columns]</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>decades <span class="op">=</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">1850</span>, <span class="dv">2030</span>, <span class="dv">10</span>))</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>miss_data <span class="op">=</span> []</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> yr <span class="kw">in</span> decades:</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    row_yr <span class="op">=</span> country_df[country_df[<span class="st">"year"</span>] <span class="op">==</span> yr]</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> row_yr.empty:</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>        miss_data.append([<span class="fl">100.0</span>] <span class="op">*</span> <span class="bu">len</span>(key_cols))</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>        miss_data.append([(row_yr[c].isna().<span class="bu">sum</span>() <span class="op">/</span> <span class="bu">len</span>(row_yr)) <span class="op">*</span> <span class="dv">100</span> <span class="cf">for</span> c <span class="kw">in</span> key_cols])</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>miss_df <span class="op">=</span> pd.DataFrame(miss_data, index<span class="op">=</span>decades, columns<span class="op">=</span>key_cols)</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">16</span>, <span class="dv">8</span>))</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>sns.heatmap(miss_df.T, cmap<span class="op">=</span><span class="st">"YlOrRd"</span>, annot<span class="op">=</span><span class="va">False</span>, linewidths<span class="op">=</span><span class="fl">0.3</span>,</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>            linecolor<span class="op">=</span><span class="st">"white"</span>, cbar_kws<span class="op">=</span>{<span class="st">"label"</span>: <span class="st">"% Missing"</span>}, ax<span class="op">=</span>ax,</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>            vmin<span class="op">=</span><span class="dv">0</span>, vmax<span class="op">=</span><span class="dv">100</span>)</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Missing Data by Column &amp; Decade</span><span class="ch">\n</span><span class="st">"</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>             <span class="st">"Dark = mostly missing  |  Light = data available"</span>,</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>             fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>)</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Decade"</span>)<span class="op">;</span> ax.set_ylabel(<span class="st">""</span>)</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>ax.tick_params(axis<span class="op">=</span><span class="st">"y"</span>, rotation<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>plt.savefig(OUT <span class="op">/</span> <span class="st">"DS2_missing_data_heatmap.png"</span>)</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>plt.close()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<hr>
+</section>
+</section>
+<section id="distribution-of-key-variables" class="level2">
+<h2 class="anchored" data-anchor-id="distribution-of-key-variables">3. Distribution of Key Variables</h2>
+<p>The distributions of core variables across all countries in the most recent year reveal heavy right-skewness — a small number of countries dominate global emissions while the majority contribute very little.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Plots/DataSummary/DS3_distributions.png" class="img-fluid figure-img"></p>
+<figcaption>Distribution Histograms</figcaption>
+</figure>
+</div>
+<p><strong>Key distributional findings:</strong></p>
+<ul>
+<li><p><strong>CO₂ emissions (Mt):</strong> Extremely right-skewed. China (~12,000 Mt) and the United States (~4,800 Mt) are extreme outliers; the median country emits under 20 Mt. A log-scale transformation is necessary for meaningful cross-country comparison.</p></li>
+<li><p><strong>CO₂ per capita (tonnes/person):</strong> Less skewed than absolute emissions (due to normalisation), but still ranges from under 0.1 t in Sub-Saharan Africa to over 30 t in Gulf states. The global median is approximately 3–4 tonnes per person.</p></li>
+<li><p><strong>GHG per capita:</strong> Includes methane and nitrous oxide in addition to CO₂, enlarging the footprint of agriculture-heavy economies (e.g., Brazil, Argentina, Australia) relative to their CO₂-only figures.</p></li>
+<li><p><strong>Primary energy consumption (TWh):</strong> Again dominated by China and the US, with the vast majority of countries consuming under 500 TWh.</p></li>
+</ul>
+<section id="code-for-distribution-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="code-for-distribution-analysis">Code for Distribution Analysis</h3>
+<div id="9fe04df4" class="cell" data-execution_count="3">
+<details class="code-fold">
+<summary>View Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>latest <span class="op">=</span> country_df[<span class="st">"year"</span>].<span class="bu">max</span>()</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df_latest <span class="op">=</span> country_df[country_df[<span class="st">"year"</span>] <span class="op">==</span> latest].copy()</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>dist_cols   <span class="op">=</span> [<span class="st">"co2"</span>, <span class="st">"co2_per_capita"</span>, <span class="st">"ghg_per_capita"</span>, <span class="st">"primary_energy_consumption"</span>]</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>dist_labels <span class="op">=</span> [<span class="st">"CO₂ (Mt)"</span>, <span class="st">"CO₂ per Capita (t)"</span>, <span class="st">"GHG per Capita (t)"</span>, <span class="st">"Energy (TWh)"</span>]</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>dist_colors <span class="op">=</span> [<span class="st">"#E63946"</span>, <span class="st">"#457B9D"</span>, <span class="st">"#F4A261"</span>, <span class="st">"#264653"</span>]</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">10</span>))</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="ss">f"Distribution of Key Variables Across Countries (</span><span class="sc">{</span>latest<span class="sc">}</span><span class="ss">)"</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>             fontsize<span class="op">=</span><span class="dv">15</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>, y<span class="op">=</span><span class="fl">1.02</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, col, label, colour <span class="kw">in</span> <span class="bu">zip</span>(axes.flat, dist_cols, dist_labels, dist_colors):</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> df_latest[col].dropna()</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> data.empty:</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        ax.text(<span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="st">"No data"</span>, ha<span class="op">=</span><span class="st">"center"</span>, va<span class="op">=</span><span class="st">"center"</span>, transform<span class="op">=</span>ax.transAxes)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>        ax.set_title(label)<span class="op">;</span> <span class="cf">continue</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Use log scale if highly skewed</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    skew <span class="op">=</span> data.skew()</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    plot_data <span class="op">=</span> np.log10(data[data <span class="op">&gt;</span> <span class="dv">0</span>]) <span class="cf">if</span> <span class="bu">abs</span>(skew) <span class="op">&gt;</span> <span class="dv">2</span> <span class="cf">else</span> data</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    ax.hist(plot_data, bins<span class="op">=</span><span class="dv">35</span>, color<span class="op">=</span>colour, alpha<span class="op">=</span><span class="fl">0.85</span>, edgecolor<span class="op">=</span><span class="st">"white"</span>, linewidth<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(<span class="ss">f"</span><span class="sc">{</span><span class="st">'log₁₀ '</span> <span class="cf">if</span> <span class="bu">abs</span>(skew) <span class="op">&gt;</span> <span class="dv">2</span> <span class="cf">else</span> <span class="st">''</span><span class="sc">}{</span>label<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    ax.set_ylabel(<span class="st">"Count"</span>)</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="ss">f"</span><span class="sc">{</span>label<span class="sc">}</span><span class="ch">\n</span><span class="ss">(n=</span><span class="sc">{</span><span class="bu">len</span>(data)<span class="sc">}</span><span class="ss">, median=</span><span class="sc">{</span>data<span class="sc">.</span>median()<span class="sc">:.2f}</span><span class="ss">)"</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    ax.axvline(plot_data.median(), color<span class="op">=</span><span class="st">"black"</span>, linewidth<span class="op">=</span><span class="fl">1.5</span>, linestyle<span class="op">=</span><span class="st">"--"</span>, alpha<span class="op">=</span><span class="fl">0.7</span>,</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>               label<span class="op">=</span><span class="ss">f"Median"</span>)</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    ax.legend(fontsize<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>plt.savefig(OUT <span class="op">/</span> <span class="st">"DS3_distributions.png"</span>)</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>plt.close()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<hr>
+</section>
+</section>
+<section id="correlation-structure" class="level2">
+<h2 class="anchored" data-anchor-id="correlation-structure">4. Correlation Structure</h2>
+<p>The correlation heatmap reveals the relationships among 14 emission and economic indicators.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Plots/DataSummary/DS4_correlation_heatmap.png" class="img-fluid figure-img"></p>
+<figcaption>Correlation Heatmap</figcaption>
+</figure>
+</div>
+<p><strong>Major correlations observed:</strong></p>
+<ul>
+<li><p><strong>CO₂ and energy consumption</strong> are very strongly correlated (r ≈ 0.99) — confirming that fossil-fuel combustion for energy is the primary source of CO₂ emissions globally.</p></li>
+<li><p><strong>Total GHG and CO₂</strong> correlate strongly (r &gt; 0.95), but not perfectly. The gap is filled by methane and nitrous oxide, which are partially independent of the fossil fuel system (originating in agriculture and land use).</p></li>
+<li><p><strong>CO₂ per capita and GDP per capita</strong> show moderate positive correlation (r ≈ 0.50–0.65), consistent with observations: wealthier countries emit more per person, but with significant scatter due to policy and energy-mix differences.</p></li>
+<li><p><strong>CO₂ per GDP</strong> (carbon intensity) is weakly or negatively correlated with GDP per capita, indicating that richer countries tend to produce economic output more efficiently in carbon terms.</p></li>
+<li><p><strong>Cumulative CO₂ and temperature attribution</strong> are near-perfectly correlated — confirming that countries that have emitted the most historically are responsible for the most warming.</p></li>
+</ul>
+<section id="code-for-correlation-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="code-for-correlation-analysis">Code for Correlation Analysis</h3>
+<div id="99312574" class="cell" data-execution_count="4">
+<details class="code-fold">
+<summary>View Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>corr_cols <span class="op">=</span> [</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"co2"</span>, <span class="st">"co2_per_capita"</span>, <span class="st">"co2_per_gdp"</span>, <span class="st">"gdp_per_capita"</span>,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"coal_co2"</span>, <span class="st">"oil_co2"</span>, <span class="st">"gas_co2"</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"primary_energy_consumption"</span>, <span class="st">"co2_per_unit_energy"</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"total_ghg"</span>, <span class="st">"methane"</span>, <span class="st">"ghg_per_capita"</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"temperature_change_from_ghg"</span>, <span class="st">"cumulative_co2"</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>corr_cols <span class="op">=</span> [c <span class="cf">for</span> c <span class="kw">in</span> corr_cols <span class="cf">if</span> c <span class="kw">in</span> df_latest.columns]</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>corr_matrix <span class="op">=</span> df_latest[corr_cols].corr()</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Pretty labels</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>pretty <span class="op">=</span> {</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"co2"</span>: <span class="st">"CO₂"</span>, <span class="st">"co2_per_capita"</span>: <span class="st">"CO₂/cap"</span>, <span class="st">"co2_per_gdp"</span>: <span class="st">"CO₂/GDP"</span>,</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"gdp_per_capita"</span>: <span class="st">"GDP/cap"</span>, <span class="st">"coal_co2"</span>: <span class="st">"Coal CO₂"</span>, <span class="st">"oil_co2"</span>: <span class="st">"Oil CO₂"</span>,</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"gas_co2"</span>: <span class="st">"Gas CO₂"</span>, <span class="st">"primary_energy_consumption"</span>: <span class="st">"Energy"</span>,</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"co2_per_unit_energy"</span>: <span class="st">"CO₂/Energy"</span>, <span class="st">"total_ghg"</span>: <span class="st">"GHG"</span>,</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"methane"</span>: <span class="st">"CH₄"</span>, <span class="st">"ghg_per_capita"</span>: <span class="st">"GHG/cap"</span>,</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"temperature_change_from_ghg"</span>: <span class="st">"Temp Δ"</span>, <span class="st">"cumulative_co2"</span>: <span class="st">"Cum CO₂"</span>,</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>corr_matrix.index   <span class="op">=</span> [pretty.get(c, c) <span class="cf">for</span> c <span class="kw">in</span> corr_matrix.index]</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>corr_matrix.columns <span class="op">=</span> [pretty.get(c, c) <span class="cf">for</span> c <span class="kw">in</span> corr_matrix.columns]</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>mask <span class="op">=</span> np.triu(np.ones_like(corr_matrix, dtype<span class="op">=</span><span class="bu">bool</span>), k<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">13</span>, <span class="dv">11</span>))</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>sns.heatmap(corr_matrix, mask<span class="op">=</span>mask, annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">".2f"</span>,</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>            cmap<span class="op">=</span><span class="st">"RdBu_r"</span>, center<span class="op">=</span><span class="dv">0</span>, linewidths<span class="op">=</span><span class="fl">0.5</span>, linecolor<span class="op">=</span><span class="st">"white"</span>,</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>            square<span class="op">=</span><span class="va">True</span>, cbar_kws<span class="op">=</span>{<span class="st">"shrink"</span>: <span class="fl">0.75</span>, <span class="st">"label"</span>: <span class="st">"Pearson r"</span>},</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>            ax<span class="op">=</span>ax, vmin<span class="op">=-</span><span class="dv">1</span>, vmax<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="ss">f"Correlation Matrix of Emission Indicators (</span><span class="sc">{</span>latest<span class="sc">}</span><span class="ss">)"</span>,</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>             fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>)</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>plt.savefig(OUT <span class="op">/</span> <span class="st">"DS4_correlation_heatmap.png"</span>)</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>plt.close()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<hr>
+</section>
+</section>
+<section id="country-clustering-by-emission-profile-t-sne" class="level2">
+<h2 class="anchored" data-anchor-id="country-clustering-by-emission-profile-t-sne">5. Country Clustering by Emission Profile (t-SNE)</h2>
+<p>To visualise how countries group by multi-dimensional emission characteristics, a t-SNE embedding was computed using 7 features: CO₂ per capita, CO₂ per GDP, coal/oil/gas emissions, cumulative CO₂, and share of global CO₂. Countries are coloured by income group (GDP per capita quartiles).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Plots/DataSummary/DS5_tsne_country_clusters.png" class="img-fluid figure-img"></p>
+<figcaption>t-SNE Embedding</figcaption>
+</figure>
+</div>
+<p><strong>Cluster interpretation:</strong></p>
+<ul>
+<li><p><strong>High-income, high-emission cluster</strong> (upper-right region): The United States, Canada, Australia, and Gulf states cluster together — these are wealthy nations with high per-capita emissions driven by fossil-fuel dependence and car-centric urban design.</p></li>
+<li><p><strong>Industrial giants, isolated:</strong> China and India appear as outliers, distant from both the high-income cluster and the low-income group. Their emission profiles are dominated by sheer scale (coal-driven industry) rather than per-capita intensity, giving them a unique position in the embedding.</p></li>
+<li><p><strong>European decouplers:</strong> Germany, United Kingdom, France, and Japan form a distinct sub-cluster — high income but moderate-to-low per-capita emissions, reflecting successful energy transition and deindustrialisation.</p></li>
+<li><p><strong>Low-income, low-emission cluster</strong> (left region): Sub-Saharan African and South Asian countries cluster tightly together — uniformly low emissions across all metrics. These countries contribute minimally to global emissions and warming.</p></li>
+<li><p><strong>Resource exporters:</strong> Russia and Saudi Arabia sit between clusters — their emission profiles are shaped by fossil-fuel extraction rather than typical industrial or consumption patterns.</p></li>
+</ul>
+<p>The t-SNE visualisation confirms that emission profiles are not simply a function of income. Countries with similar GDP per capita can occupy very different positions in the embedding depending on their energy mix, industrial structure, and policy trajectory.</p>
+<section id="code-for-t-sne-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="code-for-t-sne-analysis">Code for t-SNE Analysis</h3>
+<div id="d39637f4" class="cell" data-execution_count="5">
+<details class="code-fold">
+<summary>View Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use a compact feature set with high data coverage</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>tsne_cols <span class="op">=</span> [</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"co2_per_capita"</span>, <span class="st">"co2_per_gdp"</span>, <span class="st">"coal_co2"</span>, <span class="st">"oil_co2"</span>, <span class="st">"gas_co2"</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"cumulative_co2"</span>, <span class="st">"share_global_co2"</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>tsne_cols <span class="op">=</span> [c <span class="cf">for</span> c <span class="kw">in</span> tsne_cols <span class="cf">if</span> c <span class="kw">in</span> df_latest.columns]</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>df_tsne <span class="op">=</span> df_latest[[<span class="st">"country"</span>] <span class="op">+</span> tsne_cols].copy()</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>df_tsne <span class="op">=</span> df_tsne.replace([np.inf, <span class="op">-</span>np.inf], np.nan)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Require at least co2_per_capita to be present</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>df_tsne <span class="op">=</span> df_tsne.dropna(subset<span class="op">=</span>[<span class="st">"co2_per_capita"</span>]).reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill remaining NaN with column median (so we don't lose countries)</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> tsne_cols:</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    med <span class="op">=</span> df_tsne[c].median()</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    df_tsne[c] <span class="op">=</span> df_tsne[c].fillna(med <span class="cf">if</span> pd.notna(med) <span class="cf">else</span> <span class="dv">0</span>)</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"t-SNE using </span><span class="sc">{</span><span class="bu">len</span>(df_tsne)<span class="sc">}</span><span class="ss"> countries × </span><span class="sc">{</span><span class="bu">len</span>(tsne_cols)<span class="sc">}</span><span class="ss"> features"</span>)</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df_tsne[tsne_cols].values.astype(np.float64)</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>X_scaled <span class="op">=</span> scaler.fit_transform(X)</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign income groups by GDP per capita quartiles</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>gdp_vals <span class="op">=</span> df_latest.set_index(<span class="st">"country"</span>)[<span class="st">"gdp_per_capita"</span>]</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>df_tsne[<span class="st">"gdp_pc"</span>] <span class="op">=</span> df_tsne[<span class="st">"country"</span>].<span class="bu">map</span>(gdp_vals)</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>q25, q50, q75 <span class="op">=</span> df_tsne[<span class="st">"gdp_pc"</span>].quantile([<span class="fl">0.25</span>, <span class="fl">0.50</span>, <span class="fl">0.75</span>])</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> income_group(g):</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> pd.isna(g): <span class="cf">return</span> <span class="st">"Unknown"</span></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> g <span class="op">&lt;</span> q25: <span class="cf">return</span> <span class="st">"Low Income"</span></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> g <span class="op">&lt;</span> q50: <span class="cf">return</span> <span class="st">"Lower-Middle"</span></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> g <span class="op">&lt;</span> q75: <span class="cf">return</span> <span class="st">"Upper-Middle"</span></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">"High Income"</span></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>df_tsne[<span class="st">"income_group"</span>] <span class="op">=</span> df_tsne[<span class="st">"gdp_pc"</span>].<span class="bu">apply</span>(income_group)</span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Run t-SNE</span></span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>perplexity <span class="op">=</span> <span class="bu">min</span>(<span class="dv">30</span>, <span class="bu">len</span>(df_tsne) <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>tsne <span class="op">=</span> TSNE(n_components<span class="op">=</span><span class="dv">2</span>, perplexity<span class="op">=</span>perplexity, random_state<span class="op">=</span><span class="dv">42</span>,</span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>            learning_rate<span class="op">=</span><span class="st">"auto"</span>, init<span class="op">=</span><span class="st">"pca"</span>, max_iter<span class="op">=</span><span class="dv">1500</span>)</span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>embedding <span class="op">=</span> tsne.fit_transform(X_scaled)</span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>df_tsne[<span class="st">"x"</span>] <span class="op">=</span> embedding[:, <span class="dv">0</span>]</span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>df_tsne[<span class="st">"y"</span>] <span class="op">=</span> embedding[:, <span class="dv">1</span>]</span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>group_colours <span class="op">=</span> {</span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Low Income"</span>:    <span class="st">"#2A9D8F"</span>,</span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Lower-Middle"</span>:  <span class="st">"#E9C46A"</span>,</span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Upper-Middle"</span>:  <span class="st">"#F4A261"</span>,</span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a>    <span class="st">"High Income"</span>:   <span class="st">"#E63946"</span>,</span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Unknown"</span>:       <span class="st">"#999999"</span>,</span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a>highlight <span class="op">=</span> [</span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a>    <span class="st">"United States"</span>, <span class="st">"China"</span>, <span class="st">"India"</span>, <span class="st">"Brazil"</span>, <span class="st">"Russia"</span>, <span class="st">"Germany"</span>,</span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a>    <span class="st">"United Kingdom"</span>, <span class="st">"Japan"</span>, <span class="st">"Saudi Arabia"</span>, <span class="st">"South Africa"</span>,</span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Nigeria"</span>, <span class="st">"Australia"</span>, <span class="st">"France"</span>, <span class="st">"Indonesia"</span>, <span class="st">"Canada"</span>,</span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">10</span>))</span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> grp, colour <span class="kw">in</span> group_colours.items():</span>
+<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a>    mask <span class="op">=</span> df_tsne[<span class="st">"income_group"</span>] <span class="op">==</span> grp</span>
+<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a>    ax.scatter(df_tsne.loc[mask, <span class="st">"x"</span>], df_tsne.loc[mask, <span class="st">"y"</span>],</span>
+<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a>               c<span class="op">=</span>colour, s<span class="op">=</span><span class="dv">70</span>, alpha<span class="op">=</span><span class="fl">0.65</span>, edgecolors<span class="op">=</span><span class="st">"white"</span>,</span>
+<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a>               linewidths<span class="op">=</span><span class="fl">0.5</span>, label<span class="op">=</span>grp, zorder<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a><span class="co"># Highlight and label major countries</span></span>
+<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> country <span class="kw">in</span> highlight:</span>
+<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a>    row <span class="op">=</span> df_tsne[df_tsne[<span class="st">"country"</span>] <span class="op">==</span> country]</span>
+<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> row.empty: <span class="cf">continue</span></span>
+<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a>    ax.scatter(row[<span class="st">"x"</span>], row[<span class="st">"y"</span>], s<span class="op">=</span><span class="dv">200</span>, facecolors<span class="op">=</span><span class="st">"none"</span>,</span>
+<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a>               edgecolors<span class="op">=</span><span class="st">"black"</span>, linewidths<span class="op">=</span><span class="fl">1.8</span>, zorder<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a>    ax.annotate(country, (row[<span class="st">"x"</span>].values[<span class="dv">0</span>], row[<span class="st">"y"</span>].values[<span class="dv">0</span>]),</span>
+<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a>                xytext<span class="op">=</span>(<span class="dv">7</span>, <span class="dv">4</span>), textcoords<span class="op">=</span><span class="st">"offset points"</span>,</span>
+<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a>                fontsize<span class="op">=</span><span class="dv">8</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>, color<span class="op">=</span><span class="st">"#222222"</span>,</span>
+<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a>                bbox<span class="op">=</span><span class="bu">dict</span>(boxstyle<span class="op">=</span><span class="st">"round,pad=0.2"</span>, fc<span class="op">=</span><span class="st">"white"</span>, ec<span class="op">=</span><span class="st">"#CCCCCC"</span>, alpha<span class="op">=</span><span class="fl">0.85</span>))</span>
+<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"t-SNE Dimension 1"</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"t-SNE Dimension 2"</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a>ax.set_title(</span>
+<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"t-SNE Embedding of Countries by Emission Profile (</span><span class="sc">{</span>latest<span class="sc">}</span><span class="ss">)</span><span class="ch">\n</span><span class="ss">"</span></span>
+<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"Features: </span><span class="sc">{</span><span class="bu">len</span>(tsne_cols)<span class="sc">}</span><span class="ss"> emission indicators  |  Coloured by income group"</span>,</span>
+<span id="cb6-86"><a href="#cb6-86" aria-hidden="true" tabindex="-1"></a>    fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>,</span>
+<span id="cb6-87"><a href="#cb6-87" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-88"><a href="#cb6-88" aria-hidden="true" tabindex="-1"></a>ax.legend(title<span class="op">=</span><span class="st">"Income Group"</span>, fontsize<span class="op">=</span><span class="dv">10</span>, title_fontsize<span class="op">=</span><span class="dv">11</span>,</span>
+<span id="cb6-89"><a href="#cb6-89" aria-hidden="true" tabindex="-1"></a>          loc<span class="op">=</span><span class="st">"upper left"</span>, framealpha<span class="op">=</span><span class="fl">0.9</span>)</span>
+<span id="cb6-90"><a href="#cb6-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove axis ticks (t-SNE units are not meaningful)</span></span>
+<span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a>ax.set_xticks([])<span class="op">;</span> ax.set_yticks([])</span>
+<span id="cb6-93"><a href="#cb6-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-94"><a href="#cb6-94" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb6-95"><a href="#cb6-95" aria-hidden="true" tabindex="-1"></a>plt.savefig(OUT <span class="op">/</span> <span class="st">"DS5_tsne_country_clusters.png"</span>)</span>
+<span id="cb6-96"><a href="#cb6-96" aria-hidden="true" tabindex="-1"></a>plt.close()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>t-SNE using 213 countries × 7 features</code></pre>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="global-emissions-timeline" class="level2">
+<h2 class="anchored" data-anchor-id="global-emissions-timeline">6. Global Emissions Timeline</h2>
+<p>The long-run trajectory of global CO₂ emissions provides essential context for all subsequent analysis.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Plots/DataSummary/DS6_global_timeline.png" class="img-fluid figure-img"></p>
+<figcaption>Global Timeline</figcaption>
+</figure>
+</div>
+<ul>
+<li><p><strong>Pre-1950:</strong> Emissions grew slowly, driven by coal-powered industrialisation in Europe and North America. By 1950, global emissions were approximately 6,000 Mt.</p></li>
+<li><p><strong>1950–1973 (The Great Acceleration):</strong> Post-WWII industrial expansion, suburbanisation, and the rise of the automobile drove exponential growth. Emissions roughly tripled in this period.</p></li>
+<li><p><strong>1973–2000:</strong> Growth slowed after the oil crises, but never reversed. Emissions continued climbing as developing nations industrialised.</p></li>
+<li><p><strong>2000–2019:</strong> The most rapid absolute growth in history, driven primarily by China’s industrial surge. Global emissions rose from ~25,000 Mt to ~37,000 Mt.</p></li>
+<li><p><strong>2020 (COVID-19):</strong> A sharp but temporary ~5% decline due to pandemic lockdowns. Emissions rebounded fully by 2021–2022.</p></li>
+<li><p><strong>2022–2024:</strong> Emissions have plateaued near historical highs (~38,000–39,000 Mt), with modest annual growth as renewable energy expansion begins to offset some fossil-fuel growth.</p></li>
+</ul>
+<section id="code-for-global-timeline" class="level3">
+<h3 class="anchored" data-anchor-id="code-for-global-timeline">Code for Global Timeline</h3>
+<div id="d83c3a17" class="cell" data-execution_count="6">
+<details class="code-fold">
+<summary>View Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>world_ts <span class="op">=</span> world_df[[<span class="st">"year"</span>, <span class="st">"co2"</span>]].dropna()</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>world_ts <span class="op">=</span> world_ts[world_ts[<span class="st">"year"</span>] <span class="op">&gt;=</span> <span class="dv">1850</span>].copy()</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">6</span>))</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>ax.fill_between(world_ts[<span class="st">"year"</span>], world_ts[<span class="st">"co2"</span>], alpha<span class="op">=</span><span class="fl">0.15</span>, color<span class="op">=</span><span class="st">"#E63946"</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>ax.plot(world_ts[<span class="st">"year"</span>], world_ts[<span class="st">"co2"</span>], color<span class="op">=</span><span class="st">"#E63946"</span>, linewidth<span class="op">=</span><span class="fl">2.5</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Annotate key milestones</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>markers <span class="op">=</span> {<span class="dv">1950</span>: <span class="st">"Post-WWII</span><span class="ch">\n</span><span class="st">industrialisation"</span>, <span class="dv">1973</span>: <span class="st">"Oil</span><span class="ch">\n</span><span class="st">Crisis"</span>,</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>           <span class="dv">2008</span>: <span class="st">"Financial</span><span class="ch">\n</span><span class="st">Crisis"</span>, <span class="dv">2020</span>: <span class="st">"COVID-19"</span>}</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> yr, label <span class="kw">in</span> markers.items():</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    val <span class="op">=</span> world_ts[world_ts[<span class="st">"year"</span>] <span class="op">==</span> yr][<span class="st">"co2"</span>]</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> val.empty: <span class="cf">continue</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    ax.annotate(label, (yr, val.values[<span class="dv">0</span>]),</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>                xytext<span class="op">=</span>(<span class="dv">0</span>, <span class="dv">25</span>), textcoords<span class="op">=</span><span class="st">"offset points"</span>, ha<span class="op">=</span><span class="st">"center"</span>,</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>                fontsize<span class="op">=</span><span class="dv">8</span>, color<span class="op">=</span><span class="st">"#333333"</span>,</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>                arrowprops<span class="op">=</span><span class="bu">dict</span>(arrowstyle<span class="op">=</span><span class="st">"-&gt;"</span>, color<span class="op">=</span><span class="st">"#999999"</span>),</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>                bbox<span class="op">=</span><span class="bu">dict</span>(boxstyle<span class="op">=</span><span class="st">"round,pad=0.25"</span>, fc<span class="op">=</span><span class="st">"white"</span>, ec<span class="op">=</span><span class="st">"#BBBBBB"</span>, alpha<span class="op">=</span><span class="fl">0.9</span>))</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Year"</span>)</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Global CO₂ Emissions (Mt)"</span>)</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Global CO₂ Emissions Timeline (1850–Present)</span><span class="ch">\n</span><span class="st">"</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>             <span class="st">"From the Industrial Revolution to the Modern Era"</span>,</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>             fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>)</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>ax.yaxis.set_major_formatter(mticker.FuncFormatter(<span class="kw">lambda</span> x, _: <span class="ss">f"</span><span class="sc">{</span>x<span class="op">/</span><span class="dv">1000</span><span class="sc">:.0f}</span><span class="ss">k"</span>))</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>ax.set_xlim(<span class="dv">1850</span>, world_ts[<span class="st">"year"</span>].<span class="bu">max</span>() <span class="op">+</span> <span class="dv">2</span>)</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>plt.savefig(OUT <span class="op">/</span> <span class="st">"DS6_global_timeline.png"</span>)</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>plt.close()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<hr>
+</section>
+</section>
+<section id="global-emissions-composition-by-source" class="level2">
+<h2 class="anchored" data-anchor-id="global-emissions-composition-by-source">7. Global Emissions Composition by Source</h2>
+<p>To understand the drivers of global CO₂, we can look at the composition of sources out of total global emissions over time.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Plots/DataSummary/DS7_global_emissions_by_source.png" class="img-fluid figure-img"></p>
+<figcaption>Emissions by Source</figcaption>
+</figure>
+</div>
+<p>Historically, <strong>Land Use Change</strong> and <strong>Coal</strong> were the primary drivers. Over the 20th century, <strong>Oil</strong> and <strong>Gas</strong> increased structurally as transportation and broader energy-needs exploded.</p>
+<section id="code-for-emissions-by-source" class="level3">
+<h3 class="anchored" data-anchor-id="code-for-emissions-by-source">Code for Emissions by Source</h3>
+<div id="fb29767d" class="cell" data-execution_count="7">
+<details class="code-fold">
+<summary>View Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>world_df_plot <span class="op">=</span> df[(df[<span class="st">"country"</span>] <span class="op">==</span> <span class="st">"World"</span>) <span class="op">&amp;</span> (df[<span class="st">"year"</span>] <span class="op">&gt;=</span> <span class="dv">1900</span>)]</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>sources <span class="op">=</span> [<span class="st">"coal_co2"</span>, <span class="st">"oil_co2"</span>, <span class="st">"gas_co2"</span>, <span class="st">"cement_co2"</span>, <span class="st">"flaring_co2"</span>, <span class="st">"land_use_change_co2"</span>]</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> [<span class="st">"Coal"</span>, <span class="st">"Oil"</span>, <span class="st">"Gas"</span>, <span class="st">"Cement"</span>, <span class="st">"Flaring"</span>, <span class="st">"Land Use Change"</span>]</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> [<span class="st">"#264653"</span>, <span class="st">"#2A9D8F"</span>, <span class="st">"#E9C46A"</span>, <span class="st">"#F4A261"</span>, <span class="st">"#E63946"</span>, <span class="st">"#8AB17D"</span>]</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">7</span>))</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>ax.stackplot(world_df_plot[<span class="st">"year"</span>], [world_df_plot[src].fillna(<span class="dv">0</span>) <span class="cf">for</span> src <span class="kw">in</span> sources], labels<span class="op">=</span>labels, colors<span class="op">=</span>colors, alpha<span class="op">=</span><span class="fl">0.85</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Global CO₂ Emissions by Source (1900–Present)"</span>)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Emissions (Mt)"</span>)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>ax.legend(loc<span class="op">=</span><span class="st">"upper left"</span>)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>plt.savefig(OUT <span class="op">/</span> <span class="st">"DS7_global_emissions_by_source.png"</span>)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>plt.close()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<hr>
+</section>
+</section>
+<section id="top-historical-contributors" class="level2">
+<h2 class="anchored" data-anchor-id="top-historical-contributors">8. Top Historical Contributors</h2>
+<p>Looking at the entire timeline since 1750, a few nations are responsible for a disproportionate amount of historical emissions relative to the global sum.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Plots/DataSummary/DS8_cumulative_emitters.png" class="img-fluid figure-img"></p>
+<figcaption>Cumulative Emitters</figcaption>
+</figure>
+</div>
+<p>The <strong>United States</strong> and <strong>China</strong> are vastly ahead of the rest of the world, having each contributed hundreds of billions of tonnes to atmospheric CO₂ cumulatively over history.</p>
+<section id="code-for-cumulative-emitters" class="level3">
+<h3 class="anchored" data-anchor-id="code-for-cumulative-emitters">Code for Cumulative Emitters</h3>
+<div id="6eadaed9" class="cell" data-execution_count="8">
+<details class="code-fold">
+<summary>View Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>country_df <span class="op">=</span> df[df[<span class="st">"iso_code"</span>].notna() <span class="op">&amp;</span> (df[<span class="st">"iso_code"</span>] <span class="op">!=</span> <span class="st">""</span>)]</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>latest <span class="op">=</span> country_df[<span class="st">"year"</span>].<span class="bu">max</span>()</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>top_15 <span class="op">=</span> country_df[country_df[<span class="st">"year"</span>] <span class="op">==</span> latest].nlargest(<span class="dv">15</span>, <span class="st">"cumulative_co2"</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">8</span>))</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>bars <span class="op">=</span> ax.barh(top_15[<span class="st">"country"</span>][::<span class="op">-</span><span class="dv">1</span>], top_15[<span class="st">"cumulative_co2"</span>][::<span class="op">-</span><span class="dv">1</span>] <span class="op">/</span> <span class="dv">1000</span>, color<span class="op">=</span><span class="st">"#457B9D"</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="ss">f"Top 15 Countries by Cumulative CO₂ Emissions (through </span><span class="sc">{</span>latest<span class="sc">}</span><span class="ss">)"</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Cumulative CO₂ Emissions (Billion Tonnes / Gt)"</span>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> bar <span class="kw">in</span> bars:</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    ax.text(bar.get_width() <span class="op">+</span> <span class="dv">2</span>, bar.get_y() <span class="op">+</span> bar.get_height()<span class="op">/</span><span class="dv">2</span>, <span class="ss">f'</span><span class="sc">{</span>bar<span class="sc">.</span>get_width()<span class="sc">:.1f}</span><span class="ss"> Gt'</span>, va<span class="op">=</span><span class="st">'center'</span>, fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>plt.savefig(OUT <span class="op">/</span> <span class="st">"DS8_cumulative_emitters.png"</span>)</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>plt.close()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<hr>
+</section>
+</section>
+<section id="summary-statistics" class="level2">
+<h2 class="anchored" data-anchor-id="summary-statistics">9. Summary Statistics</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Metric</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Total rows</td>
+<td>50,411</td>
+</tr>
+<tr class="even">
+<td>Total columns</td>
+<td>80</td>
+</tr>
+<tr class="odd">
+<td>Countries/territories</td>
+<td>218</td>
+</tr>
+<tr class="even">
+<td>Year range</td>
+<td>1750–2024</td>
+</tr>
+<tr class="odd">
+<td>Global CO₂ (latest year)</td>
+<td>~38,000 Mt</td>
+</tr>
+<tr class="even">
+<td>Median country CO₂ per capita</td>
+<td>~3.5 tonnes</td>
+</tr>
+<tr class="odd">
+<td>Top emitter (absolute)</td>
+<td>China (~12,000 Mt)</td>
+</tr>
+<tr class="even">
+<td>Top emitter (per capita)</td>
+<td>Qatar / Gulf states (~30+ t)</td>
+</tr>
+<tr class="odd">
+<td>Lowest emitters (per capita)</td>
+<td>Sub-Saharan Africa (&lt;0.5 t)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><em>Plots generated by <code>data_summary_plots.py</code> and <code>data_summary_plots_extra.py</code>. Data source: Our World in Data (OWID) CO₂ and Greenhouse Gas Emissions dataset, Global Carbon Budget (2025).</em></p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
