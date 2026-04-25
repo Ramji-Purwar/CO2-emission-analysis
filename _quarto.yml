@@ -19,15 +19,15 @@ website:
         text: Data Summary
       - section: "Analysis"
         contents:
-          - href: 1_fundamentals.qmd
+          - href: fundamentals.qmd
             text: A. Fundamentals
-          - href: 2_trade_intensity.qmd
+          - href: trade_intensity.qmd
             text: B. Trade & Intensity
-          - href: 3_fuel_energy.qmd
+          - href: fuel_energy.qmd
             text: C. Fuel & Energy
-          - href: 4_global_justice.qmd
+          - href: global_justice.qmd
             text: D. Climate Justice
-          - href: 5_decoupling.qmd
+          - href: decoupling.qmd
             text: E. Decoupling & GHG
       - href: conclusion.qmd
         text: Conclusion
