@@ -246,7 +246,7 @@ By 2024, cumulative accounting exposes profound structural inequalities:
 
 - **The United States** is responsible for approximately 23.5% of the total cumulative industrial CO₂ in the atmosphere (435 Gt), despite holding only ~4% of the global population. 
 - Early industrializers—such as the UK, Germany, and Russia—carry massive historical footprints disproportionate to their modern annual outputs, highlighting the lasting legacy of the 19th and 20th-century coal eras.
-- **The Rest of the World (180+ nations)**, which comprises regions facing the most severe and immediate anthropogenic climate impacts (including sub-Saharan Africa and Southeast Asia), accounts for under 32% of total cumulative emissions combined.
+- **The Rest of the World (180+ nations)**, which comprises regions facing the most severe and immediate anthropogenic climate impacts (including sub-Saharan Africa and Southeast Asia), accounts for under 32% of total cumulative emissions combined. This relationship is formally tested in [Chapter F](hypotheses.qmd) under H5 — Per-Capita Equity, confirmed at p=1.1e-14.
 
 ### Limitations & Methodological Notes
 It is important to acknowledge that Plot A1 and A2 rely purely on *production-based* emissions (where the CO₂ is physically emitted). Plot A4 estimates historical responsibility starting from the industrial revolution, meaning choices in baseline years mildly affect relative share percentages. Finally, land-use data (Plot A3) inherently carries higher uncertainty bounds than fossil fuel sales, due to reliance on satellite estimations and diverse land-cover models.

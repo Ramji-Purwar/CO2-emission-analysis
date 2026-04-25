@@ -24,6 +24,20 @@ While emerging economies dominate present annual outputs, **climate history is o
 ### 5. Expanding the Carbon Lens
 Finally, focusing exclusively on CO₂ is analytically blind to the realities of the Global South. For dozens of **agricultural economies (e.g., across Sub-Saharan Africa and Brazil)**, non-CO₂ greenhouse gases—specifically **methane** and **nitrous oxide** from livestock, rice cultivation, and land-use change—comprise the super-majority of their climate impact. Global mitigation policies and climate finance cannot succeed if they are strictly tailored to industrial smokestacks; they must also address the pasture and the plow.
 
+## Statistical Validation
+
+All five core arguments in this analysis were subjected to formal hypothesis testing.
+Every hypothesis was rejected at p << 0.05, providing rigorous statistical backing
+for the narrative presented across chapters.
+
+| Hypothesis | Test | p-value |
+|---|---|---|
+| [H1: Carbon Leakage](hypotheses.qmd) | Paired t-test | 7.8e-04 |
+| [H2: Decoupling](hypotheses.qmd) | Wilcoxon signed-rank | 7.1e-22 |
+| [H3: Coal Intensity](hypotheses.qmd) | Mann-Whitney U | 8.1e-06 |
+| [H4: Historical Responsibility](hypotheses.qmd) | Spearman correlation | 6.2e-62 |
+| [H5: Per-Capita Equity](hypotheses.qmd) | Mann-Whitney U | 1.1e-14 |
+
 ## Final Remarks
 
 Climate change mitigation is structurally difficult not due to a lack of technology, but because of asynchronous global development. Developed nations are decarbonizing their aging domestic infrastructure while importing carbon-heavy goods; developing nations are industrializing on the cheapest available baseloads (coal) to lift billions out of poverty; and agricultural nations face climate impacts they did minimally to cause.

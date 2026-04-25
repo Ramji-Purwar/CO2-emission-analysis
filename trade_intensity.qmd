@@ -201,4 +201,4 @@ plt.close()
 
 ### Synthesis
 
-Together, these metrics paint a complex picture of global responsibility. While developed nations are genuinely improving their domestic carbon efficiency, a significant portion of their apparent decarbonization success stems from offshoring heavy industry to developing nations. True climate accounting requires analyzing the global supply chain, not just the domestic smokestack.
+Together, these metrics paint a complex picture of global responsibility. While developed nations are genuinely improving their domestic carbon efficiency, a significant portion of their apparent decarbonization success stems from offshoring heavy industry to developing nations. True climate accounting requires analyzing the global supply chain, not just the domestic smokestack. This carbon leakage argument is formally tested in [H1](hypotheses.qmd#h1-carbon-leakage), confirmed at p=7.8e-04.

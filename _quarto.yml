@@ -29,6 +29,8 @@ website:
             text: D. Climate Justice
           - href: decoupling.qmd
             text: E. Decoupling & GHG
+          - href: hypotheses.qmd
+            text: F. Hypothesis Testing
       - href: conclusion.qmd
         text: Conclusion
 

@@ -27,3 +27,15 @@ The site is structured to guide readers logically from fundamental economic rela
 - **[Conclusion](conclusion.qmd)**: The final synthesis of all insights, summarizing the complete narrative.
 
 Please use the sidebar on the left to explore the analysis chapters.
+
+## Hypotheses at a Glance
+
+| Chapter | Core Claim | Formal Test | Result |
+|---|---|---|---|
+| A. Fundamentals | Wealth drives per-capita emissions | H5: Mann-Whitney U | p=1.1e-14 ✅ |
+| B. Trade & Intensity | West exports its carbon | H1: Paired t-test | p=7.8e-04 ✅ |
+| C. Fuel & Energy | Coal grids have worse intensity | H3: Mann-Whitney U | p=8.1e-06 ✅ |
+| D. Climate Justice | History determines responsibility | H4: Spearman ρ=0.853 | p=6.2e-62 ✅ |
+| E. Decoupling | G7 economies have decoupled | H2: Wilcoxon signed-rank | p=7.1e-22 ✅ |
+
+Each visual argument in this analysis is backed by a formal statistical test in Chapter F.

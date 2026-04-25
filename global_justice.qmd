@@ -311,4 +311,4 @@ The map paints a stark reality: individual citizens in the wealthiest nations an
 
 ### Synthesis
 
-Climate negotiations frequently stall on the dual dimensions of responsibility. Developed nations argue that mitigation must include modern behemoths like China and India, as their current trajectories dictate the future climate. Developing nations accurately counter that the West filled the atmospheric carbon budget first to build their wealthy economies, making strict, uniform present-day restrictions fundamentally inequitable.
+Climate negotiations frequently stall on the dual dimensions of responsibility. Developed nations argue that mitigation must include modern behemoths like China and India, as their current trajectories dictate the future climate. Developing nations accurately counter that the West filled the atmospheric carbon budget first to build their wealthy economies, making strict, uniform present-day restrictions fundamentally inequitable. Historical responsibility is formally tested in [H4](hypotheses.qmd#h4-historical-responsibility), with Spearman ρ=0.853, p=6.2e-62.

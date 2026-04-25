@@ -120,9 +120,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">
-      Global CO2 Analysis
-      </li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./fundamentals.html">Analysis</a></li><li class="breadcrumb-item"><a href="./decoupling.html">E. Decoupling &amp; GHG</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -161,41 +159,47 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">Analysis</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./1_fundamentals.qmd" class="sidebar-item-text sidebar-link">
+  <a href="./fundamentals.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">A. Fundamentals</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./2_trade_intensity.qmd" class="sidebar-item-text sidebar-link">
+  <a href="./trade_intensity.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">B. Trade &amp; Intensity</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./3_fuel_energy.qmd" class="sidebar-item-text sidebar-link">
+  <a href="./fuel_energy.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">C. Fuel &amp; Energy</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./4_global_justice.qmd" class="sidebar-item-text sidebar-link">
+  <a href="./global_justice.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">D. Climate Justice</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./5_decoupling.qmd" class="sidebar-item-text sidebar-link">
+  <a href="./decoupling.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">E. Decoupling &amp; GHG</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hypotheses.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">F. Hypothesis Testing</span></a>
   </div>
 </li>
       </ul>
@@ -227,7 +231,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./fundamentals.html">Analysis</a></li><li class="breadcrumb-item"><a href="./decoupling.html">E. Decoupling &amp; GHG</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">E. Economic Decoupling &amp; Expanded GHG Accounting</h1>
 </div>
@@ -260,7 +264,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <figcaption>Economic vs CO₂ Decoupling (1990–2022)</figcaption>
 </figure>
 </div>
-<div id="6c7dabb0" class="cell" data-execution_count="2">
+<div id="0815e7c2" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>View Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>countries_e1 <span class="op">=</span> [<span class="st">"United States"</span>,<span class="st">"China"</span>,<span class="st">"Germany"</span>,<span class="st">"United Kingdom"</span>,<span class="st">"India"</span>,<span class="st">"Japan"</span>]</span>
@@ -307,7 +311,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <figcaption>CO₂ vs Methane &amp; Nitrous Oxide</figcaption>
 </figure>
 </div>
-<div id="3799a43a" class="cell" data-execution_count="3">
+<div id="d65f028f" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>View Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df_e2 <span class="op">=</span> country_df[country_df[<span class="st">"year"</span>] <span class="op">==</span> <span class="dv">2024</span>][[<span class="st">"country"</span>,<span class="st">"co2"</span>,<span class="st">"methane"</span>,<span class="st">"nitrous_oxide"</span>,<span class="st">"population"</span>]].dropna()</span>
