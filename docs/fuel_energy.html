@@ -267,7 +267,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <figcaption>Fuel-Source CO₂ Breakdown</figcaption>
 </figure>
 </div>
-<div id="960123a0" class="cell" data-execution_count="2">
+<div id="738c205b" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>View Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>fuels_c1   <span class="op">=</span> [<span class="st">"coal_co2"</span>,<span class="st">"oil_co2"</span>,<span class="st">"gas_co2"</span>,<span class="st">"cement_co2"</span>,<span class="st">"flaring_co2"</span>]</span>
@@ -331,7 +331,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <figcaption>Carbon Intensity of the Energy Mix Over Time</figcaption>
 </figure>
 </div>
-<div id="c63563f7" class="cell" data-execution_count="3">
+<div id="a874093e" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>View Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>countries_c4 <span class="op">=</span> [<span class="st">"United States"</span>,<span class="st">"China"</span>,<span class="st">"India"</span>,<span class="st">"France"</span>,<span class="st">"Germany"</span>,<span class="st">"United Kingdom"</span>,<span class="st">"Japan"</span>,<span class="st">"Brazil"</span>,<span class="st">"South Africa"</span>,<span class="st">"South Korea"</span>]</span>
@@ -366,7 +366,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <figcaption>Energy Consumption vs CO₂ Emissions</figcaption>
 </figure>
 </div>
-<div id="e44ca8c1" class="cell" data-execution_count="4">
+<div id="2a1d1dd5" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>View Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df_c5 <span class="op">=</span> country_df.dropna(subset<span class="op">=</span>[<span class="st">"primary_energy_consumption"</span>,<span class="st">"co2"</span>,<span class="st">"co2_per_unit_energy"</span>])</span>
@@ -409,7 +409,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <figcaption>Top 15 Countries by Gas Flaring Emissions</figcaption>
 </figure>
 </div>
-<div id="92996aa6" class="cell" data-execution_count="5">
+<div id="a952cd8b" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>View Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df_flare <span class="op">=</span> country_df.dropna(subset<span class="op">=</span>[<span class="st">"flaring_co2"</span>])</span>

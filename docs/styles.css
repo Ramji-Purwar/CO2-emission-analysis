@@ -1,17 +1,196 @@
-/* Custom styles for the website */
-.quarto-title-block .quarto-title {
-  margin-bottom: 1rem;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;700;800&family=Fira+Code:wght@400;500&display=swap');
+
+:root {
+  /* Vibrant Colors & Gradients */
+  --primary-color: #3b82f6;
+  --secondary-color: #10b981;
+  --accent-color: #8b5cf6;
+  --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  --heading-gradient: linear-gradient(135deg, #1e40af, #065f46);
+  --text-main: #334155;
+  --text-muted: #64748b;
+  
+  /* Glassmorphism Variables */
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-bg-solid: rgba(255, 255, 255, 0.95);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.08);
 }
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: var(--text-main);
+  background: var(--bg-gradient);
+  background-attachment: fixed;
+  line-height: 1.7;
+}
+
+/* Typography & Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+h1.title {
+  font-size: 2.8rem;
+  font-weight: 800;
+  background: var(--heading-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 2rem;
+  line-height: 1.2;
+}
+
+h2, h3 {
+  color: #0f172a;
+  margin-top: 2rem;
+  position: relative;
+  display: inline-block;
+}
+
+/* Sidebar Styling (Glassmorphism) */
+#quarto-sidebar {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-right: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  z-index: 100;
+}
+
+.sidebar-title a, .sidebar-item-text {
+  font-weight: 600;
+  font-family: 'Outfit', sans-serif;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.sidebar-item-container:hover .sidebar-item-text {
+  color: var(--primary-color) !important;
+  transform: translateX(4px);
+}
+
+/* Links */
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--accent-color);
+}
+
+/* Main Content Area */
+main.content {
+  background: var(--glass-bg-solid);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 3rem 4rem;
+  box-shadow: var(--glass-shadow);
+  border: 1px solid var(--glass-border);
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+  transition: box-shadow 0.4s ease;
+}
+
+main.content:hover {
+  box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.12);
+}
+
+/* Images & Visuals */
 img {
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin-top: 1rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
+  margin-top: 2rem;
   margin-bottom: 2rem;
   max-width: 100%;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.5s ease;
 }
+
+img:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.2);
+}
+
+/* Beautiful Tables */
 table {
   width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 2.5rem 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.08);
 }
+
 th {
-  background-color: #f8f9fa;
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+  color: white;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  padding: 1.2rem 1rem;
+  text-align: left;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+td {
+  padding: 1rem;
+  background-color: white;
+  border-bottom: 1px solid #f1f5f9;
+  color: var(--text-main);
+  transition: background-color 0.2s ease;
+}
+
+tr:hover td {
+  background-color: #f8fafc;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+/* Code Blocks & Terminal */
+pre, code {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.9em;
+}
+
+div.sourceCode {
+  background: #1e293b;
+  border-radius: 12px;
+  box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.2);
+  margin: 2rem 0;
+}
+
+div.sourceCode pre {
+  color: #f8fafc;
+}
+
+/* Interactive Elements & Buttons */
+.btn, .quarto-color-scheme-toggle {
+  border-radius: 9999px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+}
+
+.btn:hover, .quarto-color-scheme-toggle:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  main.content {
+    padding: 1.5rem;
+    margin-top: 1rem;
+    border-radius: 12px;
+  }
+  h1.title {
+    font-size: 2rem;
+  }
 }
